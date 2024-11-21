@@ -1,0 +1,26 @@
+<div id="<%= dom_id post %>">
+  <% if post.thumbnail.attached? %>
+    <%= image_tag post.thumbnail %>
+  <% end %>
+
+  <p>
+    <strong>Name:</strong>
+    <%= post.name %>
+  </p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= post.title %>
+  </p>
+
+  <p>
+    <strong>Text:</strong>
+    <%= post.text %>
+  </p>
+
+  <p>
+    <strong>Data:</strong>
+    <%= post.created_at %>
+  </p>
+
+</div>

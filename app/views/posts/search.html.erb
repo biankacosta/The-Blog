@@ -1,0 +1,20 @@
+<%= render "shared/navbar" %>
+
+<div class = "page-title text-center text-break">
+    <hr>
+    <h1>THE BLOG</h1>
+    <hr>
+</div>
+
+<h1>Exibindo todos os resultados para "<%= params[:query] %>"</h1>
+<% if @posts.any? %>
+  <ul>
+    <% @posts.each do |post| %>
+      <li><%= link_to post.title, post_path(post) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No results found for "<%= params[:query] %>".</p>
+<% end %>
+
+<%= render "shared/footer" %>

@@ -1,0 +1,42 @@
+.navbar-custom {
+  font-size: 1.25rem; 
+}
+
+.nav-item {
+  padding: 0px 10px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 10rem;
+    margin: 20px 4rem;
+    color: #fff
+  }
+  
+  .page-title hr {
+    border: none;
+    border-top: 2px solid #fff;
+  }
+  
+  .page-title h1 {
+    font-weight: bold;
+    font-size: 14vw;
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 6vw;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .page-title {
+      font-size: 8vw; 
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .page-title {
+      font-size: 3vw;
+    }
+  }
