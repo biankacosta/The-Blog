@@ -58,23 +58,27 @@ class PostsController < ApplicationController
   end
 
   def search
-    
-    if params[:query].present?
-      query = params[:query].downcase
-      @posts = Post.where("unaccent(LOWER(name)) LIKE unaccent(:query) OR unaccent(LOWER(text)) LIKE unaccent(:query)", query: "%#{query}%")
-                   .sort_by { |post| -post.text.scan(/#{query}/i).size }
+    query = params[:query]
+    if query.present?
+      sanitized_query = ActiveRecord::Base.sanitize_sql_like(query)
+      query_for_ts = sanitized_query.split.map { |word| "#{word}:*" }.join(' | ')
+  
+      @posts = Post.where(
+        "to_tsvector('portuguese', name || ' ' || text) @@ to_tsquery('portuguese', ?)",
+        query_for_ts
+      ).order(
+        Arel.sql("ts_rank(to_tsvector('portuguese', name || ' ' || text), to_tsquery('portuguese', '#{query_for_ts}')) DESC")
+      )
     else
-      @posts = Post.none
+      @posts = []
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:name, :title, :text, :thumbnail)
     end

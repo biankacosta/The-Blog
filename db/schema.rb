@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_20_021503) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_22_003310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_20_021503) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('portuguese'::regconfig, (((name)::text || ' '::text) || (text)::text))", name: "posts_full_text_search_idx", using: :gin
   end
 
   create_table "users", force: :cascade do |t|

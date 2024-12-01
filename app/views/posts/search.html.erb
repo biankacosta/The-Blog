@@ -6,15 +6,15 @@
     <hr>
 </div>
 
-<h1>Exibindo todos os resultados para "<%= params[:query] %>"</h1>
-<% if @posts.any? %>
+<h1>Showing all the results for "<%= params[:query] %>"</h1>
+<% if @posts.present? %>
   <ul>
     <% @posts.each do |post| %>
       <li><%= link_to post.title, post_path(post) %></li>
     <% end %>
   </ul>
 <% else %>
-  <p>No results found for "<%= params[:query] %>".</p>
+  <p>No results found for "<%= params[:query] %>". Try to search somenthing different.</p>
 <% end %>
 
 <%= render "shared/footer" %>
