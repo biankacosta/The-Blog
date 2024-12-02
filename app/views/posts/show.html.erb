@@ -2,9 +2,30 @@
 
 <%= render @post %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
+<div>
+<%= link_to "Edit this post", edit_post_path(@post) %> |
+<%= link_to "Back to posts", posts_path %>
+
+<%= button_to "Destroy this post", @post, method: :delete %>
 </div>
+
+<hr>
+  <h2>Comments</h2>
+
+  <% if @post.comments.exists? %>
+    <ul>
+      <% @post.comments.each do |comment| %>
+        <%= comment.commenter %> 
+        <%= comment.body %> 
+        <%= comment.created_at %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Be the first to comment!</p>
+  <% end %>
+<hr>
+
+  <h3>Add Comments</h3>
+
+  <%= render "comments/form", comment: @comment%>

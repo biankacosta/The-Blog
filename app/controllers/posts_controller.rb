@@ -8,6 +8,11 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+    @comment = @post.comments.build
+
+    Rails.logger.debug "Comments count: #{@post.comments.count}"
+    Rails.logger.debug "Comments: #{@post.comments.to_a}"
   end
 
   # GET /posts/new
