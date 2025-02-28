@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <h2 class="text-light mb-4">Recent blog posts</h2>
+  <% if @recent_posts.present? %>
+    <div class="row">
+      <% @recent_posts.each_with_index do |post, index| %>
+        <% card_class = index == 0 ? "col-md-12" : "col-md-6" %>
+        <div class="<%= card_class %> mb-4" >
+          <%= link_to post_path(post), class: "text-decoration-none" do %>
+            <div class="card bg-dark text-light border-0">
+            <% if post.thumbnail.attached? %>
+                <%= image_tag url_for(post.thumbnail), class: "card-img-top", alt: post.title %>
+            <% else %>
+                <%= image_tag "placeholder.jpg", class: "card-img-top", alt: "Imagem padrão" %>
+            <% end %>
+                <div class="card-body">
+                <p class="text-primary"><%= post.created_at.strftime("%A, %d %b %Y") %></p>
+                <h5 class="card-title"><%= post.title %></h5>
+                <p class="card-text"><%= truncate(post.text, length: 100) %></p>
+                </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Nenhum post recente encontrado.</p>
+  <% end %>
+</div>
